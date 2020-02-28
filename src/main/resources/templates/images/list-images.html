@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Image Directory</title>
+</head>
+
+<body>
+
+<div class="container">
+
+	<h3>Image Directory</h3>
+	<hr>
+	<a th:href="@{/images/showFormForAdd}"
+		class="btn btn-primary btn-sm mb-3">
+	Add Image
+	</a>
+	<br>
+	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Id</th>
+				<th>Path</th>
+				<!-- <th>Image</th> -->
+				<th></th>
+				
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="tempImage : ${images}">
+			
+				<td th:text="${tempImage.id}" />	
+				<td th:text="${tempImage.imagePath}" />	
+				
+				<!-- <td>
+				<img src="${tempImage.imagePath}"  style="width:300px">	
+				</td> -->
+				<td>
+				<div class="row">
+				
+					<div class="col-small">
+					<!-- Add "update" button/link -->
+					<form action="#" th:action="@{/images/showFormForUpdate}" method="POST">
+					
+						<input type="hidden" name="imageId" th:value="${tempImage.id}" />						
+						<button type="submit" class="btn btn-info btn-sm ml-3 mr-1">Update</button>
+
+					</form>
+					</div>
+					
+					<div class="col-small">
+					<!-- Add "delete" button/link -->					
+					<form action="#" th:action="@{/images/delete}" method="POST">
+					
+						<input type="hidden" name="imageId" th:value="${tempImage.id}" />						
+						<button type="submit" class="btn btn-danger btn-sm"
+								onclick="if (!(confirm('Are you sure you want to delete this image?'))) return false">
+								Delete 
+						</button>
+
+					</form>
+					</div>
+										
+					<div class="col-small">
+					<!-- Add "download" button/link -->					
+					<form action="#" th:action="@{/images/download}" method="POST">
+					
+						<input type="hidden" name="imageId" th:value="${tempImage.id}" />						
+						<button type="submit"  class="btn btn-success btn-sm"
+								onclick="if (!(confirm('Are you sure you want to download this image?'))) return false">
+								Download
+						</button>
+
+					</form>
+					</div>
+					
+				</div>	
+				</td>
+				
+			</tr>
+		</tbody>		
+	</table>
+	
+</div>
+	
+</body>
+</html>
+
+
+
